@@ -83,6 +83,16 @@ module Hybridge
           field = "description"
         elsif field.downcase == "location"
           field = "based_near"
+        elsif field.downcase == "alternate title"
+          field = "alternative"
+        elsif field.downcase == "type"
+          field = "resource_type"
+        elsif field.downcase == "archivesspace uri"
+          field = "aspaceurl"
+        elsif field.downcase == "access rights"
+          field = "resource_access_rights"
+        elsif field.downcase == "rights"
+          field = "rights_statement"
         end
 
         field.downcase.strip.gsub(/\s/,'_').to_sym
