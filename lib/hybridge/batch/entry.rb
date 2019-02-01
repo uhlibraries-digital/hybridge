@@ -37,6 +37,9 @@ module Hybridge
             next
           elsif(field_sym.id2name == "based_near")
             data[:based_near_attributes] = based_near_attributes(attribute.split("; "))
+          elsif(field_sym.id2name == "aspaceurl")
+            url = URI.parse(attribute) rescue false
+            data[field_sym] = Settings.hybridge.aspace_frontend_url + attribute unless url.kind_of?(URI::HTTP) || url.kind_of?(URI::HTTPS)
           elsif(work_type.send(field_sym).nil?)
             data[field_sym] = attribute
           else
