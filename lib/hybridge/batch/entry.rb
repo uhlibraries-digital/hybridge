@@ -110,6 +110,8 @@ module Hybridge
           field = "resource_access_rights"
         elsif field.downcase == "rights"
           field = "rights_statement"
+        elsif field.downcase == "collection"
+          field = "provenance"
         end
 
         field.downcase.strip.gsub(/\s/,'_').to_sym
