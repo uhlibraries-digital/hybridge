@@ -18,9 +18,7 @@ module Hybridge
     end
 
     def perform
-      if params[:package_id].nil?
-        flash[:error] = "Unable to find selected file in source directory. Please contact your System Administrator"
-      else
+      if !params[:package_id].nil?
         params[:package_id].each do | package |
           package_location = staged!(File.join(location, package))
           next if package_location.nil?
