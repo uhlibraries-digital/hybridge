@@ -29,7 +29,7 @@
                 </td>
                 <td class="col-md-7"><%= package %></td>
                 <td class="col-md-4 text-right">
-                  <label for="collection_id">
+                  <label for="<%= "collection_id_#{package.to_s.gsub('/', '_')}" %>">
                     <%= select_tag "collection_id[#{package}]", options_for_select(@collections.collect {|c| [ c[:title], c[:id] ] }), {:include_blank => '', :class => 'form-control select optional'} %>
                   </label>
                 </td>
