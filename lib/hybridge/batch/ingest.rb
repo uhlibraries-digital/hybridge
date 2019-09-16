@@ -34,6 +34,11 @@ module Hybridge
               row.delete("Object Type")
               @files[@works.length] << row
             end
+          elsif type.include? "OCR"
+            if good_work
+              index = @files[@works.length].length - 1
+              @files[@works.length][index]["ocr_filename"] = row["Filename"]
+            end
           else
             good_work = false
             message = "Unknown work type '#{type}'"

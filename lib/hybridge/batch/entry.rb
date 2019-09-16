@@ -86,7 +86,7 @@ module Hybridge
           end
 
           file_actor = Hyrax::Actors::FileSetActor.new(FileSet.create, @current_user)
-          file_actor.create_metadata
+          file_actor.create_metadata(alto_data: get_ocr_data(file_location(file_object["ocr_filename"])))
           file_actor.create_content(File.new(file_path))
           file_actor.attach_to_work(work_type)
           file_actor.file_set.permissions_attributes = work_permissions
@@ -115,6 +115,10 @@ module Hybridge
         end
 
         field.downcase.strip.gsub(/\s/,'_').to_sym
+      end
+
+      def get_ocr_data(filepath)
+        File.read(filepath) if File.file?(filepath)
       end
 
     end
