@@ -58,8 +58,12 @@ module Hybridge
           if !@collection_id.nil? && !@collection_id.empty?
             data[:member_of_collections_attributes] = {"0" => { "id" => @collection_id, "_destroy" => "false" }}
           end
-
         end
+
+        if work_form.terms.include?(:transcript) && !@files.nil?
+          data[:transcript] = Ocr.new(@files, @package_location).text
+        end
+
         data
       end
 
@@ -86,7 +90,8 @@ module Hybridge
           end
 
           file_actor = Hyrax::Actors::FileSetActor.new(FileSet.create, @current_user)
-          file_actor.create_metadata(alto_data: get_ocr_data(file_location(file_object["ocr_filename"])))
+          file_actor.create_metadata(alto_data: get_ocr_data(file_location(file_object["ocr_filename"]))) if file_object.include?("ocr_filename")
+          file_actor.create_metadata() unless file_object.include?("ocr_filename")
           file_actor.create_content(File.new(file_path))
           file_actor.attach_to_work(work_type)
           file_actor.file_set.permissions_attributes = work_permissions
