@@ -69,6 +69,7 @@ module Hybridge
       end
       new_filename = filename + '.staged'
       File.rename(filename, new_filename)
+      sleep 0.2
       new_filename
     end
 

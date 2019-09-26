@@ -55,12 +55,14 @@ module Hybridge
       def processing!
         new_file = Pathname(@file).sub_ext '' + ".processing"
         File.rename(@file, new_file) unless File.file?(new_file)
+        sleep 0.2
         @file = new_file
       end
 
       def processed!
         new_file = Pathname(@file).sub_ext '' + ".processed"
         File.rename(@file, new_file)
+        sleep 0.2
         @file = new_file
       end
 
