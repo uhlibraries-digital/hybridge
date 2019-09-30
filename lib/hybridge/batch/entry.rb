@@ -61,7 +61,7 @@ module Hybridge
         end
 
         if work_form.terms.include?(:transcript) && !@files.nil?
-          data[:transcript] = Ocr.new(@files, @package_location).text
+          data[:transcript] = Ocr.new(@files, @package_location).text[0, 32000]
         end
 
         data
