@@ -11,7 +11,7 @@ module Hybridge
 
       def load!
 
-        return unless staged? || processing?
+        return if !staged?
 
         processing!
         @works = []
