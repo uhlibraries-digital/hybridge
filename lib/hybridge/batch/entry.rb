@@ -37,7 +37,7 @@ module Hybridge
           if (field_sym.nil? || attribute.nil? || attribute.empty? || key.to_s.include?("Object Type") || !work_form.terms.include?(field_sym))
             next
           elsif(field_sym.id2name == "based_near")
-            data[:based_near_attributes] = based_near_attributes(attribute.split("; "))
+            data[:based_near_attributes] = based_near_attributes(attribute.split("||"))
           elsif(field_sym.id2name == "aspaceurl")
             url = URI.parse(attribute) rescue false
             data[field_sym] = Settings.hybridge.aspace_frontend_url + attribute unless url.kind_of?(URI::HTTP) || url.kind_of?(URI::HTTPS)
@@ -52,7 +52,7 @@ module Hybridge
           elsif(work_type.send(field_sym).nil?)
             data[field_sym] = attribute
           else
-            data[field_sym] = attribute.split "; "
+            data[field_sym] = attribute.split "||"
           end
 
           if !@collection_id.nil? && !@collection_id.empty?
