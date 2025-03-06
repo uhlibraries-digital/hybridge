@@ -88,7 +88,7 @@ module Hybridge
     private
 
       def collection_search_builder
-        Hyrax::CollectionSearchBuilder.new(self).rows(1000).with_access(:edit)
+        SearchBuilder.new(self).rows(100).with_access(:edit)
       end
 
   end
