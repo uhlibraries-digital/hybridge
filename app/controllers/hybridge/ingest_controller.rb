@@ -88,7 +88,7 @@ module Hybridge
     private
 
       def collection_search_builder
-        SearchBuilder.new(self).rows(100).with_access(:edit)
+        Hybridge::SearchBuilder.new(self).rows(100).with_access(:edit)
       end
 
   end
