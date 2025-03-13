@@ -75,8 +75,18 @@ module Hybridge
 
     def collections
       colls = []
-      response = self.repository.search(collection_search_builder)
-      response.docs.each do |document|
+      page = 1
+      documents = []
+      loop do
+        response = self.repository.search(collection_search_builder(page))
+        documents += response.docs
+        page += 1
+
+        if response.docs.length < 100
+          break
+        end
+      end
+      documents.each do |document|
         colls << {
           id: document.id,
           title: document.title.first || document.title
@@ -87,8 +97,8 @@ module Hybridge
 
     private
 
-      def collection_search_builder
-        Hybridge::SearchBuilder.new(self).rows(100).with_access(:edit)
+      def collection_search_builder(page = 1)
+        Hybridge::SearchBuilder.new(self).rows(100).with_access(:edit).page(page)
       end
 
   end
